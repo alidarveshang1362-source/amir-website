@@ -19,7 +19,6 @@
             color: #222;
         }
 
-        /* منوی سایت */
         nav {
             position: sticky;
             top: 0;
@@ -45,7 +44,6 @@
             transform: translateY(-5px) scale(1.05);
         }
 
-        /* صفحه اصلی */
         header {
             min-height: 75vh;
             display: flex;
@@ -68,7 +66,6 @@
             font-size: 22px;
         }
 
-        /* دکمه‌ها */
         .buttons {
             display: flex;
             flex-wrap: wrap;
@@ -78,17 +75,13 @@
         }
 
         .game-button {
-            border: none;
             background: white;
             color: #222;
             padding: 15px 25px;
             border-radius: 15px;
             font-size: 17px;
-            font-family: Tahoma, Arial, sans-serif;
-            cursor: pointer;
-            transition: 0.3s;
             text-decoration: none;
-            display: inline-block;
+            transition: 0.3s;
         }
 
         .game-button:hover {
@@ -96,46 +89,6 @@
             box-shadow: 0 8px 20px #0006;
         }
 
-        /* بازی حدس کلمه */
-        .game {
-            background: white;
-            width: 85%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 35px;
-            border-radius: 25px;
-            text-align: center;
-            box-shadow: 0 8px 25px #bbb;
-        }
-
-        .game input {
-            width: 80%;
-            max-width: 300px;
-            padding: 13px;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            font-size: 17px;
-            text-align: center;
-            margin: 15px;
-        }
-
-        .game button {
-            border: none;
-            background: #222;
-            color: white;
-            padding: 13px 25px;
-            border-radius: 12px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        #result {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        /* کارت‌ها */
         .card {
             background: white;
             width: 85%;
@@ -186,16 +139,15 @@
 
         <div class="buttons">
 
-            <!-- بازی حدس کلمه -->
-            <a href="#games" class="game-button">
+            <a
+                href="https://alidarveshang1362-source.github.io/index.html/"
+                class="game-button">
                 🎯 بازی حدس کلمه
             </a>
 
-            <!-- بازی دوز -->
             <a
                 href="https://alidarveshang1362-source.github.io/index.htm/"
-                class="game-button"
-                target="_blank">
+                class="game-button">
                 ⭕ بازی دوز
             </a>
 
@@ -203,29 +155,6 @@
 
     </header>
 
-    <!-- بازی حدس کلمه -->
-    <section class="game" id="games">
-
-        <h2>🎯 بازی حدس کلمه</h2>
-
-        <p>کلمه مخفی را حدس بزن!</p>
-
-        <input
-            type="text"
-            id="guess"
-            placeholder="حدست را بنویس">
-
-        <br>
-
-        <button onclick="checkWord()">
-            حدس بزن 🎯
-        </button>
-
-        <p id="result"></p>
-
-    </section>
-
-    <!-- درباره من -->
     <section class="card" id="about">
 
         <h2>👤 درباره من</h2>
@@ -237,7 +166,6 @@
 
     </section>
 
-    <!-- تماس -->
     <section class="card" id="contact">
 
         <h2>📞 تماس با من</h2>
@@ -251,37 +179,6 @@
     <footer>
         ساخته شده با ❤️ و کدنویسی
     </footer>
-
-    <script>
-
-        // کلمه مخفی بازی
-        const secretWord = "کامپیوتر";
-
-        function checkWord() {
-
-            const guess = document
-                .getElementById("guess")
-                .value
-                .trim();
-
-            const result = document.getElementById("result");
-
-            if (guess === "") {
-
-                result.textContent = "⚠️ اول یک کلمه بنویس!";
-
-            } else if (guess === secretWord) {
-
-                result.textContent = "🎉 آفرین! درست حدس زدی!";
-
-            } else {
-
-                result.textContent = "❌ اشتباهه! دوباره تلاش کن.";
-
-            }
-        }
-
-    </script>
 
 </body>
 </html>
