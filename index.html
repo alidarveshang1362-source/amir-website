@@ -7,6 +7,7 @@
     <title>امیر حسین درویشان 🎮</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             scroll-behavior: smooth;
@@ -15,170 +16,397 @@
         body {
             margin: 0;
             font-family: Tahoma, Arial, sans-serif;
-            background: #f1f3f6;
+            background: #111;
             color: #222;
         }
+
+        /* منوی بالا */
 
         nav {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: #111;
+
+            background: #000;
+
             padding: 16px;
+
             text-align: center;
+
+            border-bottom: 2px solid #e00000;
         }
 
         nav a {
             display: inline-block;
+
             color: white;
+
             text-decoration: none;
+
             margin: 5px 10px;
+
             padding: 10px 16px;
+
             border-radius: 12px;
+
             transition: 0.3s;
         }
 
         nav a:hover {
-            background: white;
-            color: #111;
-            transform: translateY(-5px) scale(1.05);
+            background: #e00000;
+
+            color: white;
+
+            transform:
+                translateY(-5px)
+                scale(1.05);
         }
 
+
+        /* صفحه اصلی */
+
         header {
+
             min-height: 75vh;
+
             display: flex;
+
             flex-direction: column;
+
             justify-content: center;
+
             align-items: center;
+
             text-align: center;
+
             padding: 30px;
-            background: linear-gradient(135deg, #222, #555);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #000000,
+                    #520000,
+                    #000000
+                );
+
             color: white;
         }
 
         header h1 {
+
             font-size: 55px;
+
             margin-bottom: 10px;
-            animation: appear 1.2s ease;
+
+            animation:
+                appear 1.2s ease;
+
+            text-shadow:
+                0 0 15px #e00000;
         }
 
         header p {
             font-size: 22px;
         }
 
+
+        /* دکمه‌ها */
+
         .buttons {
+
             display: flex;
+
             flex-wrap: wrap;
+
             justify-content: center;
+
             gap: 15px;
+
             margin-top: 20px;
         }
 
         .game-button {
-            background: white;
-            color: #222;
+
+            background: #fff;
+
+            color: #111;
+
             padding: 15px 25px;
+
             border-radius: 15px;
+
             font-size: 17px;
+
+            font-weight: bold;
+
             text-decoration: none;
+
             transition: 0.3s;
+
+            border: 2px solid #e00000;
         }
 
         .game-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 20px #0006;
+
+            background: #e00000;
+
+            color: white;
+
+            transform:
+                translateY(-5px)
+                scale(1.05);
+
+            box-shadow:
+                0 8px 20px #e0000066;
         }
+
+
+        /* کارت‌ها */
 
         .card {
-            background: white;
+
+            background: #fff;
+
             width: 85%;
+
             max-width: 600px;
+
             margin: 50px auto;
+
             padding: 35px;
+
             border-radius: 25px;
+
             text-align: center;
-            box-shadow: 0 8px 25px #bbb;
+
+            box-shadow:
+                0 8px 25px #000;
+
+            border-top:
+                5px solid #e00000;
         }
+
+        .card h2 {
+
+            color: #b00000;
+        }
+
+
+        /* پایین سایت */
 
         footer {
+
             text-align: center;
-            background: #111;
+
+            background: #000;
+
             color: white;
+
             padding: 25px;
+
             margin-top: 60px;
+
+            border-top:
+                2px solid #e00000;
         }
 
+
+        /* انیمیشن */
+
         @keyframes appear {
+
             from {
+
                 opacity: 0;
-                transform: translateY(-40px) scale(0.8);
+
+                transform:
+                    translateY(-40px)
+                    scale(0.8);
+
             }
 
             to {
+
                 opacity: 1;
-                transform: translateY(0) scale(1);
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
             }
+
         }
+
+
+        /* مناسب گوشی */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+
+                font-size: 38px;
+
+            }
+
+            header p {
+
+                font-size: 18px;
+
+            }
+
+            .game-button {
+
+                padding:
+                    13px 18px;
+
+            }
+
+        }
+
     </style>
 </head>
 
+
 <body>
 
+
+    <!-- منوی سایت -->
+
     <nav>
-        <a href="#home">🏠 خانه</a>
-        <a href="#about">👤 درباره من</a>
-        <a href="#games">🎮 بازی‌ها</a>
-        <a href="#contact">📞 تماس</a>
+
+        <a href="#home">
+            🏠 خانه
+        </a>
+
+        <a href="#about">
+            👤 درباره من
+        </a>
+
+        <a href="#games">
+            🎮 بازی‌ها
+        </a>
+
+        <a href="#contact">
+            📞 تماس
+        </a>
+
     </nav>
+
+
+    <!-- صفحه اصلی -->
 
     <header id="home">
 
-        <h1>امیر حسین درویشان</h1>
+        <h1>
+            امیر حسین درویشان
+        </h1>
 
-        <p>به سایت من خوش آمدی 😎</p>
+        <p>
+            به سایت من خوش آمدی 😎
+        </p>
 
-        <div class="buttons">
+
+        <div
+            class="buttons"
+            id="games">
+
+
+            <!-- حدس کلمه -->
 
             <a
                 href="https://alidarveshang1362-source.github.io/index.html/"
                 class="game-button">
+
                 🎯 بازی حدس کلمه
+
             </a>
+
+
+            <!-- دوز -->
 
             <a
                 href="https://alidarveshang1362-source.github.io/index.htm/"
                 class="game-button">
+
                 ⭕ بازی دوز
+
             </a>
+
+
+            <!-- مار -->
+
+            <a
+                href="snake.html"
+                class="game-button">
+
+                🐍 بازی مار
+
+            </a>
+
+
+            <!-- تتریس -->
+
+            <a
+                href="https://alidarveshang1362-source.github.io/tetris.htm2/"
+                class="game-button">
+
+                🧱 بازی تتریس
+
+            </a>
+
 
         </div>
 
     </header>
 
-    <section class="card" id="about">
 
-        <h2>👤 درباره من</h2>
+    <!-- درباره من -->
+
+    <section
+        class="card"
+        id="about">
+
+        <h2>
+            👤 درباره من
+        </h2>
 
         <p>
+
             سلام! من امیر حسین درویشان هستم.
             این سایت منه و دارم برنامه‌نویسی یاد می‌گیرم. 🚀
+
         </p>
 
     </section>
 
-    <section class="card" id="contact">
 
-        <h2>📞 تماس با من</h2>
+    <!-- تماس -->
+
+    <section
+        class="card"
+        id="contact">
+
+        <h2>
+            📞 تماس با من
+        </h2>
 
         <p>
+
             این قسمت را می‌توانیم بعداً کامل‌تر کنیم.
+
         </p>
 
     </section>
 
+
+    <!-- پایین سایت -->
+
     <footer>
+
         ساخته شده با ❤️ و کدنویسی
+
     </footer>
+
 
 </body>
 </html>
