@@ -1,184 +1,359 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>امیر حسین درویشان 🎮</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>امیر وبسایت</title>
 
     <style>
+
         * {
             box-sizing: border-box;
-            scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
-            font-family: Tahoma, Arial, sans-serif;
-            background: #f1f3f6;
-            color: #222;
-        }
 
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: #111;
-            padding: 16px;
-            text-align: center;
-        }
+            min-height: 100vh;
 
-        nav a {
-            display: inline-block;
+            font-family:
+                Tahoma,
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #312e81
+                );
+
             color: white;
-            text-decoration: none;
-            margin: 5px 10px;
-            padding: 10px 16px;
-            border-radius: 12px;
-            transition: 0.3s;
-        }
 
-        nav a:hover {
-            background: white;
-            color: #111;
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        header {
-            min-height: 75vh;
             display: flex;
-            flex-direction: column;
+
             justify-content: center;
+
             align-items: center;
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #222, #555);
-            color: white;
+
+            padding: 20px;
         }
 
-        header h1 {
-            font-size: 55px;
+
+        .container {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            text-align: center;
+        }
+
+
+        h1 {
+
+            font-size: 40px;
+
             margin-bottom: 10px;
-            animation: appear 1.2s ease;
         }
 
-        header p {
-            font-size: 22px;
+
+        .subtitle {
+
+            color: #cbd5e1;
+
+            font-size: 18px;
+
+            margin-bottom: 35px;
         }
 
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+
+        .games {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
         }
 
-        .game-button {
-            background: white;
-            color: #222;
-            padding: 15px 25px;
-            border-radius: 15px;
-            font-size: 17px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
 
-        .game-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 20px #0006;
-        }
+        .game {
 
-        .card {
-            background: white;
-            width: 85%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 35px;
+            background:
+                rgba(255,255,255,0.12);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.2);
+
             border-radius: 25px;
-            text-align: center;
-            box-shadow: 0 8px 25px #bbb;
+
+            padding: 30px 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.3);
+
+            transition: 0.25s;
         }
+
+
+        .game:hover {
+
+            transform:
+                translateY(-7px);
+
+        }
+
+
+        .icon {
+
+            font-size: 65px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .game h2 {
+
+            margin:
+                10px 0;
+
+            font-size: 25px;
+        }
+
+
+        .game p {
+
+            color: #cbd5e1;
+
+            line-height: 1.8;
+
+            min-height: 55px;
+        }
+
+
+        .game a {
+
+            display: block;
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 14px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+
+        .game a:active {
+
+            transform:
+                scale(0.95);
+
+        }
+
+
+        /* دکمه بازی مار */
+
+        .snake-button {
+
+            background:
+                #16a34a;
+        }
+
+
+        .snake-button:hover {
+
+            background:
+                #15803d;
+        }
+
+
+        /* دکمه تتریس */
+
+        .tetris-button {
+
+            background:
+                #7c3aed;
+        }
+
+
+        .tetris-button:hover {
+
+            background:
+                #6d28d9;
+        }
+
 
         footer {
-            text-align: center;
-            background: #111;
-            color: white;
-            padding: 25px;
-            margin-top: 60px;
+
+            margin-top: 35px;
+
+            color: #94a3b8;
+
+            font-size: 15px;
         }
 
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(-40px) scale(0.8);
+
+        .name {
+
+            color: #a78bfa;
+
+            font-weight: bold;
+        }
+
+
+        /* مخصوص گوشی */
+
+        @media (max-width: 600px) {
+
+            h1 {
+
+                font-size: 32px;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
+
+            .games {
+
+                grid-template-columns:
+                    1fr;
             }
+
+
+            .game {
+
+                padding: 25px 18px;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <nav>
-        <a href="#home">🏠 خانه</a>
-        <a href="#about">👤 درباره من</a>
-        <a href="#games">🎮 بازی‌ها</a>
-        <a href="#contact">📞 تماس</a>
-    </nav>
 
-    <header id="home">
+<div class="container">
 
-        <h1>امیر حسین درویشان</h1>
 
-        <p>به سایت من خوش آمدی 😎</p>
+    <h1>
+        🎮 امیر وبسایت
+    </h1>
 
-        <div class="buttons">
+
+    <div class="subtitle">
+
+        بازی‌های من
+
+    </div>
+
+
+    <div class="games">
+
+
+        <!-- ================= -->
+        <!-- بازی مار -->
+        <!-- ================= -->
+
+        <div class="game">
+
+            <div class="icon">
+                🐍
+            </div>
+
+
+            <h2>
+                بازی مار
+            </h2>
+
+
+            <p>
+                سیب بخور، بزرگ شو
+                و رکوردت را بشکن!
+            </p>
+
 
             <a
-                href="https://alidarveshang1362-source.github.io/index.html/"
-                class="game-button">
-                🎯 بازی حدس کلمه
-            </a>
+                class="snake-button"
+                href="snake.html">
 
-            <a
-                href="https://alidarveshang1362-source.github.io/index.htm/"
-                class="game-button">
-                ⭕ بازی دوز
+                🐍 بازی مار
+
             </a>
 
         </div>
 
-    </header>
 
-    <section class="card" id="about">
 
-        <h2>👤 درباره من</h2>
+        <!-- ================= -->
+        <!-- بازی تتریس -->
+        <!-- ================= -->
 
-        <p>
-            سلام! من امیر حسین درویشان هستم.
-            این سایت منه و دارم برنامه‌نویسی یاد می‌گیرم. 🚀
-        </p>
+        <div class="game">
 
-    </section>
+            <div class="icon">
+                🧱
+            </div>
 
-    <section class="card" id="contact">
 
-        <h2>📞 تماس با من</h2>
+            <h2>
+                بازی تتریس
+            </h2>
 
-        <p>
-            این قسمت را می‌توانیم بعداً کامل‌تر کنیم.
-        </p>
 
-    </section>
+            <p>
+                قطعات را مرتب کن
+                و خطوط را کامل کن!
+            </p>
+
+
+            <a
+                class="tetris-button"
+                href="https://alidarveshang1362-source.github.io/tetris.htm2/">
+
+                🧱 بازی تتریس
+
+            </a>
+
+        </div>
+
+
+    </div>
+
 
     <footer>
-        ساخته شده با ❤️ و کدنویسی
+
+        ساخته شده توسط
+
+        <span class="name">
+            امیر حسین درویشان
+        </span>
+
     </footer>
 
+
+</div>
+
+
 </body>
+
 </html>
