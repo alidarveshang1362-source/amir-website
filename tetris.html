@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>امیر وبسایت</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Tahoma,
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #312e81
+                );
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            text-align: center;
+        }
+
+
+        h1 {
+
+            font-size: 40px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .subtitle {
+
+            color: #cbd5e1;
+
+            font-size: 18px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .games {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .game {
+
+            background:
+                rgba(255,255,255,0.12);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.2);
+
+            border-radius: 25px;
+
+            padding: 30px 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.3);
+
+            transition: 0.25s;
+        }
+
+
+        .game:hover {
+
+            transform:
+                translateY(-7px);
+
+        }
+
+
+        .icon {
+
+            font-size: 65px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .game h2 {
+
+            margin:
+                10px 0;
+
+            font-size: 25px;
+        }
+
+
+        .game p {
+
+            color: #cbd5e1;
+
+            line-height: 1.8;
+
+            min-height: 55px;
+        }
+
+
+        .game a {
+
+            display: block;
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 14px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+
+        .game a:active {
+
+            transform:
+                scale(0.95);
+
+        }
+
+
+        /* دکمه بازی مار */
+
+        .snake-button {
+
+            background:
+                #16a34a;
+        }
+
+
+        .snake-button:hover {
+
+            background:
+                #15803d;
+        }
+
+
+        /* دکمه تتریس */
+
+        .tetris-button {
+
+            background:
+                #7c3aed;
+        }
+
+
+        .tetris-button:hover {
+
+            background:
+                #6d28d9;
+        }
+
+
+        footer {
+
+            margin-top: 35px;
+
+            color: #94a3b8;
+
+            font-size: 15px;
+        }
+
+
+        .name {
+
+            color: #a78bfa;
+
+            font-weight: bold;
+        }
+
+
+        /* مخصوص گوشی */
+
+        @media (max-width: 600px) {
+
+            h1 {
+
+                font-size: 32px;
+            }
+
+
+            .games {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .game {
+
+                padding: 25px 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+        🎮 امیر وبسایت
+    </h1>
+
+
+    <div class="subtitle">
+
+        بازی‌های من
+
+    </div>
+
+
+    <div class="games">
+
+
+        <!-- ================= -->
+        <!-- بازی مار -->
+        <!-- ================= -->
+
+        <div class="game">
+
+            <div class="icon">
+                🐍
+            </div>
+
+
+            <h2>
+                بازی مار
+            </h2>
+
+
+            <p>
+                سیب بخور، بزرگ شو
+                و رکوردت را بشکن!
+            </p>
+
+
+            <a
+                class="snake-button"
+                href="snake.html">
+
+                🐍 بازی مار
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ================= -->
+        <!-- بازی تتریس -->
+        <!-- ================= -->
+
+        <div class="game">
+
+            <div class="icon">
+                🧱
+            </div>
+
+
+            <h2>
+                بازی تتریس
+            </h2>
+
+
+            <p>
+                قطعات را مرتب کن
+                و خطوط را کامل کن!
+            </p>
+
+
+            <a
+                class="tetris-button"
+                href="https://alidarveshang1362-source.github.io/tetris.htm2/">
+
+                🧱 بازی تتریس
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <footer>
+
+        ساخته شده توسط
+
+        <span class="name">
+            امیر حسین درویشان
+        </span>
+
+    </footer>
+
+
+</div>
+
+
+</body>
+
+</html>
