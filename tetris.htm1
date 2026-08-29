@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تتریس 🎮</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #111;
+        color: white;
+        font-family: Tahoma, Arial, sans-serif;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    h1 {
+        margin: 12px 0 5px;
+    }
+
+    #score {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    canvas {
+        background: #222;
+        border: 3px solid white;
+        width: min(90vw, 300px);
+        height: min(150vw, 600px);
+        max-height: 65vh;
+        display: block;
+        margin: auto;
+    }
+
+    .controls {
+        margin: 12px auto;
+        display: grid;
+        grid-template-columns: repeat(3, 70px);
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .controls button,
+    #restart {
+        border: none;
+        border-radius: 12px;
+        background: white;
+        color: #111;
+        font-size: 22px;
+        padding: 12px;
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+
+    .controls button:active,
+    #restart:active {
+        transform: scale(0.9);
+    }
+
+    #restart {
+        font-size: 16px;
+        margin-top: 5px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎮 تتریس</h1>
+<div id="score">امتیاز: 0</div>
+
+<canvas id="game" width="300" height="600"></canvas>
+
+<div class="controls">
+    <button onclick="move(-1)">⬅️</button>
+    <button onclick="rotate()">🔄</button>
+    <button onclick="move(1)">➡️</button>
+    <button onclick="drop()">⬇️</button>
+</div>
+
+<button id="restart" onclick="restartGame()">🔄 شروع دوباره</button>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const COLS = 10;
+const ROWS = 20;
+const SIZE = 30;
+
+let board;
+let piece;
+let score = 0;
+let gameOver = false;
+
+const pieces = [
+    [[1,1,1,1]],
+
+    [
+        [1,1],
+        [1,1]
+    ],
+
+    [
+        [0,1,0],
+        [1,1,1]
+    ],
+
+    [
+        [1,0,0],
+        [1,1,1]
+    ],
+
+    [
+        [0,0,1],
+        [1,1,1]
+    ],
+
+    [
+        [0,1,1],
+        [1,1,0]
+    ],
+
+    [
+        [1,1,0],
+        [0,1,1]
+    ]
+];
+
+function createBoard() {
+    board = [];
+
+    for (let y = 0; y < ROWS; y++) {
+        board[y] = [];
+
+        for (let x = 0; x < COLS; x++) {
+            board[y][x] = 0;
+        }
+    }
+}
+
+function newPiece() {
+
+    const shape =
+        pieces[Math.floor(Math.random() * pieces.length)];
+
+    piece = {
+        shape: shape.map(row => [...row]),
+        x: 3,
+        y: 0
+    };
+
+    if (collision()) {
+        gameOver = true;
+        alert("💥 بازی تمام شد!");
+    }
+}
+
+function drawBlock(x, y) {
+
+    ctx.fillStyle = "#4caf50";
+
+    ctx.fillRect(
+        x * SIZE,
+        y * SIZE,
+        SIZE - 1,
+        SIZE - 1
+    );
+}
+
+function draw() {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let y = 0; y < ROWS; y++) {
+
+        for (let x = 0; x < COLS; x++) {
+
+            if (board[y][x]) {
+                drawBlock(x, y);
+            }
+        }
+    }
+
+    if (piece) {
+
+        for (let y = 0; y < piece.shape.length; y++) {
+
+            for (let x = 0; x < piece.shape[y].length; x++) {
+
+                if (piece.shape[y][x]) {
+
+                    drawBlock(
+                        piece.x + x,
+                        piece.y + y
+                    );
+                }
+            }
+        }
+    }
+}
+
+function collision() {
+
+    for (let y = 0; y < piece.shape.length; y++) {
+
+        for (let x = 0; x < piece.shape[y].length; x++) {
+
+            if (!piece.shape[y][x]) continue;
+
+            const newX = piece.x + x;
+            const newY = piece.y + y;
+
+            if (
+                newX < 0 ||
+                newX >= COLS ||
+                newY >= ROWS ||
+                (newY >= 0 && board[newY][newX])
+            ) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+function move(direction) {
+
+    if (gameOver) return;
+
+    piece.x += direction;
+
+    if (collision()) {
+        piece.x -= direction;
+    }
+
+    draw();
+}
+
+function drop() {
+
+    if (gameOver) return;
+
+    piece.y++;
+
+    if (collision()) {
+
+        piece.y--;
+
+        merge();
+
+        clearLines();
+
+        newPiece();
+    }
+
+    draw();
+}
+
+function merge() {
+
+    for (let y = 0; y < piece.shape.length; y++) {
+
+        for (let x = 0; x < piece.shape[y].length; x++) {
+
+            if (piece.shape[y][x]) {
+
+                board[piece.y + y][piece.x + x] = 1;
+            }
+        }
+    }
+}
+
+function clearLines() {
+
+    let lines = 0;
+
+    for (let y = ROWS - 1; y >= 0; y--) {
+
+        if (board[y].every(cell => cell === 1)) {
+
+            board.splice(y, 1);
+
+            board.unshift(
+                new Array(COLS).fill(0)
+            );
+
+            lines++;
+            y++;
+        }
+    }
+
+    if (lines > 0) {
+
+        score += lines * 100;
+
+        document.getElementById("score").textContent =
+            "امتیاز: " + score;
+    }
+}
+
+function rotate() {
+
+    if (gameOver) return;
+
+    const oldShape = piece.shape;
+
+    piece.shape = piece.shape[0].map(
+        (_, index) =>
+            piece.shape.map(row => row[index]).reverse()
+    );
+
+    if (collision()) {
+        piece.shape = oldShape;
+    }
+
+    draw();
+}
+
+function restartGame() {
+
+    score = 0;
+    gameOver = false;
+
+    document.getElementById("score").textContent =
+        "امتیاز: 0";
+
+    createBoard();
+    newPiece();
+    draw();
+}
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "ArrowLeft") {
+        move(-1);
+    }
+
+    if (event.key === "ArrowRight") {
+        move(1);
+    }
+
+    if (event.key === "ArrowDown") {
+        drop();
+    }
+
+    if (event.key === "ArrowUp") {
+        rotate();
+    }
+});
+
+restartGame();
+
+setInterval(() => {
+
+    if (!gameOver) {
+        drop();
+    }
+
+}, 600);
+
+</script>
+
+</body>
+</html>
+  
