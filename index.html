@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>امیر حسین درویشان 🎮</title>
 
     <style>
@@ -14,7 +15,7 @@
         body {
             margin: 0;
             font-family: Tahoma, Arial, sans-serif;
-            background: #f1f3f6;
+            background: #111;
             color: #222;
         }
 
@@ -22,9 +23,10 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: #111;
+            background: #000;
             padding: 16px;
             text-align: center;
+            border-bottom: 2px solid #e00000;
         }
 
         nav a {
@@ -34,12 +36,12 @@
             margin: 5px 10px;
             padding: 10px 16px;
             border-radius: 12px;
-            transition: .3s;
+            transition: 0.3s;
         }
 
         nav a:hover {
-            background: white;
-            color: #111;
+            background: #e00000;
+            color: white;
             transform: translateY(-5px) scale(1.05);
         }
 
@@ -51,7 +53,7 @@
             align-items: center;
             text-align: center;
             padding: 30px;
-            background: linear-gradient(135deg, #222, #555);
+            background: linear-gradient(135deg, #000000, #520000, #000000);
             color: white;
         }
 
@@ -59,6 +61,7 @@
             font-size: 55px;
             margin-bottom: 10px;
             animation: appear 1.2s ease;
+            text-shadow: 0 0 15px #e00000;
         }
 
         header p {
@@ -74,43 +77,54 @@
         }
 
         .game-button {
-            background: white;
-            color: #222;
+            background: #fff;
+            color: #111;
             padding: 15px 25px;
             border-radius: 15px;
             font-size: 17px;
+            font-weight: bold;
             text-decoration: none;
-            transition: .3s;
+            transition: 0.3s;
+            border: 2px solid #e00000;
         }
 
         .game-button:hover {
+            background: #e00000;
+            color: white;
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 20px #0006;
+            box-shadow: 0 8px 20px #e0000066;
         }
 
         .card {
-            background: white;
+            background: #fff;
             width: 85%;
             max-width: 600px;
             margin: 50px auto;
             padding: 35px;
             border-radius: 25px;
             text-align: center;
-            box-shadow: 0 8px 25px #bbb;
+            box-shadow: 0 8px 25px #000;
+            border-top: 5px solid #e00000;
+        }
+
+        .card h2 {
+            color: #b00000;
         }
 
         footer {
             text-align: center;
-            background: #111;
+            background: #000;
             color: white;
             padding: 25px;
             margin-top: 60px;
+            border-top: 2px solid #e00000;
+            font-size: 18px;
         }
 
         @keyframes appear {
             from {
                 opacity: 0;
-                transform: translateY(-40px) scale(.8);
+                transform: translateY(-40px) scale(0.8);
             }
 
             to {
@@ -119,7 +133,7 @@
             }
         }
 
-        @media(max-width:600px) {
+        @media (max-width: 600px) {
             header h1 {
                 font-size: 38px;
             }
@@ -129,7 +143,6 @@
             }
 
             .game-button {
-                font-size: 15px;
                 padding: 13px 18px;
             }
         }
@@ -151,21 +164,34 @@
 
         <p>به سایت من خوش آمدی 😎</p>
 
-        <div class="buttons">
+        <div class="buttons" id="games">
 
-            <a href="https://alidarveshang1362-source.github.io/index.html/"
-               class="game-button">
+            <!-- بازی حدس کلمه -->
+            <a
+                href="https://alidarveshang1362-source.github.io/index.html/"
+                class="game-button">
                 🎯 بازی حدس کلمه
             </a>
 
-            <a href="https://alidarveshang1362-source.github.io/index.htm/"
-               class="game-button">
+            <!-- بازی دوز -->
+            <a
+                href="https://alidarveshang1362-source.github.io/index.htm/"
+                class="game-button">
                 ⭕ بازی دوز
             </a>
 
-            <a href="tetris.html"
-               class="game-button">
-                🎮 تتریس
+            <!-- بازی مار -->
+            <a
+                href="https://alidarveshang1362-source.github.io/snake-game/"
+                class="game-button">
+                🐍 بازی مار
+            </a>
+
+            <!-- بازی تتریس -->
+            <a
+                href="https://alidarveshang1362-source.github.io/tetris.htm2/"
+                class="game-button">
+                🧱 بازی تتریس
             </a>
 
         </div>
@@ -177,7 +203,7 @@
         <h2>👤 درباره من</h2>
 
         <p>
-            سلام! من امیر حسین درویشان هستم.<br>
+            سلام! من امیر حسین درویشان هستم.
             این سایت منه و دارم برنامه‌نویسی یاد می‌گیرم. 🚀
         </p>
 
