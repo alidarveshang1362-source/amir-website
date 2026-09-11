@@ -6,6 +6,9 @@
 
 <title>امیر حسین درویشان 🎮</title>
 
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 
 * {
@@ -342,7 +345,7 @@ header p {
 
 .score-table {
     width: 92%;
-    max-width: 700px;
+    max-width: 900px;
     margin: auto;
     background: var(--card);
     border: 1px solid var(--card-border);
@@ -369,6 +372,168 @@ header p {
 .score-value {
     color: #ffd700;
     font-weight: bold;
+}
+
+/* جدول آنلاین */
+
+.online-table {
+    width: 94%;
+    max-width: 1000px;
+    margin: 25px auto;
+    overflow-x: auto;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+}
+
+.online-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.online-table th,
+.online-table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.online-table th {
+    background: rgba(224,0,0,0.18);
+    color: var(--red2);
+}
+
+.online-table tr:last-child td {
+    border-bottom: none;
+}
+
+.online-table .my-row {
+    background: rgba(224,0,0,0.12);
+}
+
+.rank {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.loading {
+    text-align: center;
+    padding: 25px;
+    color: var(--muted);
+}
+
+/* بازیکن */
+
+.player-box {
+    width: 92%;
+    max-width: 700px;
+    margin: 25px auto;
+    padding: 18px;
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--red);
+    border-radius: 18px;
+}
+
+.player-box strong {
+    color: #ffd700;
+}
+
+/* پنجره نام */
+
+.name-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.name-modal.hidden {
+    display: none;
+}
+
+.name-box {
+    width: 100%;
+    max-width: 430px;
+    padding: 30px;
+    border-radius: 25px;
+    background: #151515;
+    border: 2px solid var(--red);
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.name-box h2 {
+    margin-top: 0;
+}
+
+.name-box p {
+    color: #ccc;
+    line-height: 1.8;
+}
+
+.name-input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #555;
+    background: #080808;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+    outline: none;
+}
+
+.name-input:focus {
+    border-color: var(--red);
+}
+
+.name-submit {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: var(--red);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.name-submit:disabled {
+    opacity: 0.6;
+}
+
+.name-error {
+    color: #ff5555;
+    min-height: 25px;
+    margin-top: 12px;
+}
+
+/* پیام وضعیت */
+
+.status-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    max-width: 450px;
+    margin: auto;
+    z-index: 10000;
+    background: #171717;
+    border: 1px solid var(--red);
+    color: white;
+    padding: 14px;
+    border-radius: 14px;
+    text-align: center;
+    display: none;
 }
 
 /* تماس */
@@ -478,7 +643,48 @@ footer p {
 
 <body>
 
+<!-- پنجره انتخاب نام -->
+
+<div class="name-modal" id="nameModal">
+
+    <div class="name-box">
+
+        <h2>👤 خوش آمدی!</h2>
+
+        <p>
+            برای ورود به سایت یک نام بازیکن انتخاب کن.
+            این نام باید برایت یکتا باشد.
+        </p>
+
+        <input
+            id="nameInput"
+            class="name-input"
+            type="text"
+            maxlength="20"
+            placeholder="نام بازیکن"
+            autocomplete="off">
+
+        <button
+            id="nameSubmit"
+            class="name-submit">
+
+            🚀 ورود به سایت
+
+        </button>
+
+        <div
+            id="nameError"
+            class="name-error">
+        </div>
+
+    </div>
+
+</div>
+
+<div id="statusMessage" class="status-message"></div>
+
 <!-- دکمه تغییر حالت -->
+
 <button class="theme-button" id="themeButton" title="تغییر حالت">
     🌙
 </button>
@@ -498,7 +704,6 @@ footer p {
     <a href="#contact">📞 تماس</a>
 
 </nav>
-
 
 <!-- صفحه اصلی -->
 
@@ -534,6 +739,16 @@ footer p {
 
 </header>
 
+<!-- اطلاعات بازیکن -->
+
+<div class="player-box">
+
+    👤 بازیکن فعلی:
+    <strong id="playerNameDisplay">
+        در حال اتصال...
+    </strong>
+
+</div>
 
 <!-- بازی‌ها -->
 
@@ -547,9 +762,7 @@ footer p {
 
 </div>
 
-
 <div class="games">
-
 
     <!-- حدس کلمه -->
 
@@ -590,7 +803,6 @@ footer p {
 
     </div>
 
-
     <!-- دوز -->
 
     <div class="game-card">
@@ -629,7 +841,6 @@ footer p {
         </a>
 
     </div>
-
 
     <!-- مار -->
 
@@ -670,7 +881,6 @@ footer p {
 
     </div>
 
-
     <!-- تتریس -->
 
     <div class="game-card">
@@ -709,7 +919,6 @@ footer p {
         </a>
 
     </div>
-
 
     <!-- دایناسور -->
 
@@ -750,22 +959,19 @@ footer p {
 
     </div>
 
-
 </div>
 
-
-<!-- جدول رکوردها -->
+<!-- رکوردهای محلی -->
 
 <div class="section-title" id="scores">
 
-    <h2>🏆 جدول رکوردها</h2>
+    <h2>🏆 رکوردهای من</h2>
 
     <p>
-        رکوردها روی همین دستگاه ذخیره می‌شوند.
+        بهترین رکوردهای این دستگاه
     </p>
 
 </div>
-
 
 <div class="score-table">
 
@@ -831,6 +1037,56 @@ footer p {
 
 </div>
 
+<!-- جدول آنلاین -->
+
+<div class="section-title">
+
+    <h2>🌍 جدول رکورد آنلاین</h2>
+
+    <p>
+        این جدول برای همه بازیکنان مشترک است 🏆
+    </p>
+
+</div>
+
+<div class="online-table">
+
+    <div id="onlineLoading" class="loading">
+        ⏳ در حال دریافت رکوردها...
+    </div>
+
+    <table id="leaderboardTable" style="display:none;">
+
+        <thead>
+
+            <tr>
+
+                <th>🥇 رتبه</th>
+
+                <th>👤 بازیکن</th>
+
+                <th>🎯 حدس کلمه</th>
+
+                <th>⭕ دوز</th>
+
+                <th>🐍 مار</th>
+
+                <th>🧱 تتریس</th>
+
+                <th>🦖 دایناسور</th>
+
+                <th>🏆 مجموع</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="leaderboardBody">
+        </tbody>
+
+    </table>
+
+</div>
 
 <!-- درباره من -->
 
@@ -839,7 +1095,6 @@ footer p {
     <h2>👤 سازنده سایت</h2>
 
 </div>
-
 
 <section class="about">
 
@@ -862,7 +1117,6 @@ footer p {
 
 </section>
 
-
 <!-- تماس -->
 
 <div class="section-title" id="contact">
@@ -871,7 +1125,6 @@ footer p {
 
 </div>
 
-
 <section class="contact">
 
     <p>
@@ -879,7 +1132,6 @@ footer p {
     </p>
 
 </section>
-
 
 <!-- فوتر -->
 
@@ -899,57 +1151,382 @@ footer p {
 
 </footer>
 
-
 <script>
 
-/* =========================
-   حالت تاریک و روشن
-========================= */
+/* =====================================================
+   اتصال به Supabase
+===================================================== */
 
-const themeButton =
-    document.getElementById("themeButton");
+const SUPABASE_URL =
+    "https://bfblbmvrmwuwceghoqet.supabase.co";
 
-const savedTheme =
-    localStorage.getItem("siteTheme");
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_BpQzudTwE6pAGVHe9whOiA_LPJo2si3";
 
-if (savedTheme === "light") {
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-    document.body.classList.add("light");
 
-    themeButton.textContent = "☀️";
+/* =====================================================
+   شناسه بازیکن
+===================================================== */
 
-}
+function createPlayerId() {
 
-themeButton.addEventListener("click", function() {
+    if (window.crypto && crypto.randomUUID) {
 
-    document.body.classList.toggle("light");
-
-    if (document.body.classList.contains("light")) {
-
-        localStorage.setItem("siteTheme", "light");
-
-        themeButton.textContent = "☀️";
-
-    } else {
-
-        localStorage.setItem("siteTheme", "dark");
-
-        themeButton.textContent = "🌙";
+        return crypto.randomUUID();
 
     }
 
-});
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function(c) {
+
+            const r =
+                Math.random() * 16 | 0;
+
+            const v =
+                c === "x"
+                    ? r
+                    : (r & 0x3 | 0x8);
+
+            return v.toString(16);
+
+        }
+    );
+
+}
+
+let playerId =
+    localStorage.getItem("onlinePlayerId");
+
+if (!playerId) {
+
+    playerId = createPlayerId();
+
+    localStorage.setItem(
+        "onlinePlayerId",
+        playerId
+    );
+
+}
 
 
-/* =========================
-   رکوردها
-========================= */
+/* =====================================================
+   عناصر صفحه
+===================================================== */
+
+const nameModal =
+    document.getElementById("nameModal");
+
+const nameInput =
+    document.getElementById("nameInput");
+
+const nameSubmit =
+    document.getElementById("nameSubmit");
+
+const nameError =
+    document.getElementById("nameError");
+
+const playerNameDisplay =
+    document.getElementById("playerNameDisplay");
+
+const statusMessage =
+    document.getElementById("statusMessage");
+
+
+/* =====================================================
+   پیام وضعیت
+===================================================== */
+
+function showStatus(message) {
+
+    statusMessage.textContent =
+        message;
+
+    statusMessage.style.display =
+        "block";
+
+    setTimeout(function() {
+
+        statusMessage.style.display =
+            "none";
+
+    }, 3000);
+
+}
+
+
+/* =====================================================
+   نام ذخیره شده
+===================================================== */
+
+function getSavedPlayerName() {
+
+    return localStorage.getItem(
+        "onlinePlayerName"
+    );
+
+}
+
+
+/* =====================================================
+   ثبت بازیکن
+===================================================== */
+
+async function registerPlayer(name) {
+
+    const cleanName =
+        name.trim();
+
+    if (
+        cleanName.length < 3 ||
+        cleanName.length > 20
+    ) {
+
+        nameError.textContent =
+            "❌ نام باید بین ۳ تا ۲۰ کاراکتر باشد.";
+
+        return false;
+
+    }
+
+    nameSubmit.disabled =
+        true;
+
+    nameError.textContent =
+        "⏳ در حال ثبت نام...";
+
+    try {
+
+        const { data, error } =
+            await supabaseClient.rpc(
+                "register_player",
+                {
+                    p_player_id: playerId,
+                    p_name: cleanName
+                }
+            );
+
+        if (error) {
+
+            console.error(error);
+
+            nameError.textContent =
+                "❌ خطا در اتصال به سرور.";
+
+            nameSubmit.disabled =
+                false;
+
+            return false;
+
+        }
+
+        if (
+            data &&
+            data.success === false
+        ) {
+
+            nameError.textContent =
+                "❌ این نام قبلاً انتخاب شده است.";
+
+            nameSubmit.disabled =
+                false;
+
+            return false;
+
+        }
+
+        localStorage.setItem(
+            "onlinePlayerName",
+            cleanName
+        );
+
+        playerNameDisplay.textContent =
+            cleanName;
+
+        nameModal.classList.add(
+            "hidden"
+        );
+
+        nameError.textContent = "";
+
+        showStatus(
+            "✅ ورود موفق بود! خوش آمدی " +
+            cleanName
+        );
+
+        await syncLocalScores();
+
+        await loadLeaderboard();
+
+        return true;
+
+    } catch (error) {
+
+        console.error(error);
+
+        nameError.textContent =
+            "❌ اتصال به سرور برقرار نشد.";
+
+        nameSubmit.disabled =
+            false;
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   شروع سایت
+===================================================== */
+
+async function startSite() {
+
+    const savedName =
+        getSavedPlayerName();
+
+    if (savedName) {
+
+        playerNameDisplay.textContent =
+            savedName;
+
+        nameModal.classList.add(
+            "hidden"
+        );
+
+        await syncLocalScores();
+
+        await loadLeaderboard();
+
+    } else {
+
+        nameModal.classList.remove(
+            "hidden"
+        );
+
+        setTimeout(function() {
+
+            nameInput.focus();
+
+        }, 300);
+
+    }
+
+}
+
+
+/* =====================================================
+   دکمه ثبت نام
+===================================================== */
+
+nameSubmit.addEventListener(
+    "click",
+    async function() {
+
+        await registerPlayer(
+            nameInput.value
+        );
+
+    }
+);
+
+
+nameInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            registerPlayer(
+                nameInput.value
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   حالت تاریک و روشن
+===================================================== */
+
+const themeButton =
+    document.getElementById(
+        "themeButton"
+    );
+
+const savedTheme =
+    localStorage.getItem(
+        "siteTheme"
+    );
+
+if (savedTheme === "light") {
+
+    document.body.classList.add(
+        "light"
+    );
+
+    themeButton.textContent =
+        "☀️";
+
+}
+
+themeButton.addEventListener(
+    "click",
+    function() {
+
+        document.body.classList.toggle(
+            "light"
+        );
+
+        if (
+            document.body.classList.contains(
+                "light"
+            )
+        ) {
+
+            localStorage.setItem(
+                "siteTheme",
+                "light"
+            );
+
+            themeButton.textContent =
+                "☀️";
+
+        } else {
+
+            localStorage.setItem(
+                "siteTheme",
+                "dark"
+            );
+
+            themeButton.textContent =
+                "🌙";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   رکوردهای محلی
+===================================================== */
 
 function getBest(key) {
 
     return localStorage.getItem(key) || 0;
 
 }
+
 
 function showBest() {
 
@@ -969,45 +1546,397 @@ function showBest() {
         getBest("dinoBest");
 
 
-    document.getElementById("wordBest").textContent =
-        word;
+    document.getElementById(
+        "wordBest"
+    ).textContent = word;
 
-    document.getElementById("ticBest").textContent =
-        tic;
+    document.getElementById(
+        "ticBest"
+    ).textContent = tic;
 
-    document.getElementById("snakeBest").textContent =
-        snake;
+    document.getElementById(
+        "snakeBest"
+    ).textContent = snake;
 
-    document.getElementById("tetrisBest").textContent =
-        tetris;
+    document.getElementById(
+        "tetrisBest"
+    ).textContent = tetris;
 
-    document.getElementById("dinoBest").textContent =
-        dino;
+    document.getElementById(
+        "dinoBest"
+    ).textContent = dino;
 
 
-    document.getElementById("tableWord").textContent =
-        word;
+    document.getElementById(
+        "tableWord"
+    ).textContent = word;
 
-    document.getElementById("tableTic").textContent =
-        tic;
+    document.getElementById(
+        "tableTic"
+    ).textContent = tic;
 
-    document.getElementById("tableSnake").textContent =
-        snake;
+    document.getElementById(
+        "tableSnake"
+    ).textContent = snake;
 
-    document.getElementById("tableTetris").textContent =
-        tetris;
+    document.getElementById(
+        "tableTetris"
+    ).textContent = tetris;
 
-    document.getElementById("tableDino").textContent =
-        dino;
+    document.getElementById(
+        "tableDino"
+    ).textContent = dino;
 
 }
 
 showBest();
 
 
-/* =========================
+/* =====================================================
+   ارسال رکورد به سرور
+===================================================== */
+
+async function submitOnlineScore(
+    game,
+    score
+) {
+
+    if (!playerId) {
+        return;
+    }
+
+    const numericScore =
+        Number(score);
+
+    if (
+        !Number.isFinite(
+            numericScore
+        )
+    ) {
+
+        return;
+
+    }
+
+    try {
+
+        const { data, error } =
+            await supabaseClient.rpc(
+                "submit_score",
+                {
+                    p_player_id: playerId,
+                    p_game: game,
+                    p_score: Math.floor(
+                        numericScore
+                    )
+                }
+            );
+
+        if (error) {
+
+            console.error(
+                "Score error:",
+                error
+            );
+
+            return;
+
+        }
+
+        await loadLeaderboard();
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   همگام‌سازی رکوردهای قبلی
+===================================================== */
+
+async function syncLocalScores() {
+
+    const scores = {
+
+        word:
+            Number(
+                getBest("wordBest")
+            ),
+
+        tic:
+            Number(
+                getBest("ticBest")
+            ),
+
+        snake:
+            Number(
+                getBest("snakeBest")
+            ),
+
+        tetris:
+            Number(
+                getBest("tetrisBest")
+            ),
+
+        dino:
+            Number(
+                getBest("dinoBest")
+            )
+
+    };
+
+
+    for (
+        const game in scores
+    ) {
+
+        const score =
+            scores[game];
+
+        if (
+            score > 0
+        ) {
+
+            await submitOnlineScore(
+                game,
+                score
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   جدول آنلاین
+===================================================== */
+
+async function loadLeaderboard() {
+
+    const loading =
+        document.getElementById(
+            "onlineLoading"
+        );
+
+    const table =
+        document.getElementById(
+            "leaderboardTable"
+        );
+
+    const body =
+        document.getElementById(
+            "leaderboardBody"
+        );
+
+
+    loading.style.display =
+        "block";
+
+    table.style.display =
+        "none";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("leaderboard")
+                .select("*")
+                .order(
+                    "total_score",
+                    {
+                        ascending: false
+                    }
+                )
+                .limit(50);
+
+
+        if (error) {
+
+            console.error(error);
+
+            loading.textContent =
+                "❌ دریافت رکوردها ناموفق بود.";
+
+            return;
+
+        }
+
+
+        body.innerHTML = "";
+
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            loading.textContent =
+                "هنوز رکوردی ثبت نشده است.";
+
+            return;
+
+        }
+
+
+        data.forEach(
+            function(player, index) {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+                if (
+                    player.player_id ===
+                    playerId
+                ) {
+
+                    row.classList.add(
+                        "my-row"
+                    );
+
+                }
+
+
+                const name =
+                    player.name ||
+                    "بازیکن";
+
+
+                const word =
+                    Number(
+                        player.word_score || 0
+                    );
+
+                const tic =
+                    Number(
+                        player.tic_score || 0
+                    );
+
+                const snake =
+                    Number(
+                        player.snake_score || 0
+                    );
+
+                const tetris =
+                    Number(
+                        player.tetris_score || 0
+                    );
+
+                const dino =
+                    Number(
+                        player.dino_score || 0
+                    );
+
+                const total =
+                    word +
+                    tic +
+                    snake +
+                    tetris +
+                    dino;
+
+
+                row.innerHTML = `
+
+                    <td class="rank">
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        👤 ${escapeHTML(name)}
+                        ${
+                            player.player_id === playerId
+                            ? " ⭐"
+                            : ""
+                        }
+                    </td>
+
+                    <td>
+                        ${word}
+                    </td>
+
+                    <td>
+                        ${tic}
+                    </td>
+
+                    <td>
+                        ${snake}
+                    </td>
+
+                    <td>
+                        ${tetris}
+                    </td>
+
+                    <td>
+                        ${dino}
+                    </td>
+
+                    <td class="rank">
+                        ${total}
+                    </td>
+
+                `;
+
+
+                body.appendChild(
+                    row
+                );
+
+            }
+        );
+
+
+        loading.style.display =
+            "none";
+
+        table.style.display =
+            "table";
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        loading.textContent =
+            "❌ خطایی هنگام دریافت رکوردها رخ داد.";
+
+    }
+
+}
+
+
+/* =====================================================
+   جلوگیری از HTML ناخواسته در نام
+===================================================== */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
    صدای کلیک ساده
-========================= */
+===================================================== */
 
 function clickSound() {
 
@@ -1021,11 +1950,58 @@ function clickSound() {
 
         audio.volume = 0.15;
 
-        audio.play().catch(() => {});
+        audio.play().catch(
+            () => {}
+        );
 
     } catch(e) {}
 
 }
+
+
+/* =====================================================
+   قابل استفاده برای بازی‌های دیگر
+===================================================== */
+
+/*
+   از داخل بازی‌ها می‌توان بعداً این تابع را صدا زد:
+
+   submitOnlineScore("snake", score);
+
+   submitOnlineScore("dino", score);
+
+   submitOnlineScore("tetris", score);
+
+   submitOnlineScore("word", score);
+
+   submitOnlineScore("tic", score);
+*/
+
+window.submitOnlineScore =
+    submitOnlineScore;
+
+
+/* =====================================================
+   شروع
+===================================================== */
+
+startSite();
+
+
+/* =====================================================
+   به‌روزرسانی جدول وقتی صفحه دوباره فعال می‌شود
+===================================================== */
+
+window.addEventListener(
+    "focus",
+    function() {
+
+        showBest();
+
+        loadLeaderboard();
+
+    }
+);
 
 </script>
 
