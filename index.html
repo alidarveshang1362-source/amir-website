@@ -1,233 +1,1033 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>امیر حسین درویشان 🎮</title>
+<title>امیر حسین درویشان 🎮</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+<style>
 
-        body {
-            margin: 0;
-            font-family: Tahoma, Arial, sans-serif;
-            background: #111;
-            color: #222;
-        }
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
 
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: #000;
-            padding: 16px;
-            text-align: center;
-            border-bottom: 2px solid #e00000;
-        }
+:root {
+    --bg: #080808;
+    --bg2: #151515;
+    --card: rgba(255,255,255,0.08);
+    --card-border: rgba(255,255,255,0.15);
+    --text: #ffffff;
+    --muted: #cccccc;
+    --red: #e00000;
+    --red2: #ff3333;
+    --white: #ffffff;
+    --shadow: rgba(0,0,0,0.4);
+}
 
-        nav a {
-            display: inline-block;
-            color: white;
-            text-decoration: none;
-            margin: 5px 10px;
-            padding: 10px 16px;
-            border-radius: 12px;
-            transition: 0.3s;
-        }
+body.light {
+    --bg: #f4f4f4;
+    --bg2: #ffffff;
+    --card: rgba(255,255,255,0.75);
+    --card-border: rgba(0,0,0,0.1);
+    --text: #111111;
+    --muted: #555555;
+    --shadow: rgba(0,0,0,0.15);
+}
 
-        nav a:hover {
-            background: #e00000;
-            color: white;
-            transform: translateY(-5px) scale(1.05);
-        }
+body {
+    margin: 0;
+    font-family: Tahoma, Arial, sans-serif;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(224,0,0,0.18), transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba(224,0,0,0.12), transparent 25%),
+        var(--bg);
+    color: var(--text);
+    transition: background 0.4s, color 0.4s;
+}
 
-        header {
-            min-height: 75vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #000000, #520000, #000000);
-            color: white;
-        }
+/* نوار منو */
 
-        header h1 {
-            font-size: 55px;
-            margin-bottom: 10px;
-            animation: appear 1.2s ease;
-            text-shadow: 0 0 15px #e00000;
-        }
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.82);
+    backdrop-filter: blur(15px);
+    padding: 13px 10px;
+    text-align: center;
+    border-bottom: 2px solid var(--red);
+}
 
-        header p {
-            font-size: 22px;
-        }
+nav a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    margin: 4px;
+    padding: 10px 15px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
 
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
+nav a:hover {
+    background: var(--red);
+    transform: translateY(-3px);
+}
 
-        .game-button {
-            background: #fff;
-            color: #111;
-            padding: 15px 25px;
-            border-radius: 15px;
-            font-size: 17px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: 0.3s;
-            border: 2px solid #e00000;
-        }
+/* دکمه حالت */
 
-        .game-button:hover {
-            background: #e00000;
-            color: white;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 20px #e0000066;
-        }
+.theme-button {
+    position: fixed;
+    left: 15px;
+    top: 15px;
+    z-index: 2000;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
 
-        .card {
-            background: #fff;
-            width: 85%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 35px;
-            border-radius: 25px;
-            text-align: center;
-            box-shadow: 0 8px 25px #000;
-            border-top: 5px solid #e00000;
-        }
+.theme-button:hover {
+    transform: rotate(20deg) scale(1.1);
+}
 
-        .card h2 {
-            color: #b00000;
-        }
+/* صفحه اصلی */
 
-        footer {
-            text-align: center;
-            background: #000;
-            color: white;
-            padding: 25px;
-            margin-top: 60px;
-            border-top: 2px solid #e00000;
-            font-size: 18px;
-        }
+header {
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
 
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(-40px) scale(0.8);
-            }
+header::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: rgba(224,0,0,0.18);
+    border-radius: 50%;
+    filter: blur(80px);
+    top: -100px;
+    right: -100px;
+    animation: floating 6s infinite alternate;
+}
 
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
+header::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(224,0,0,0.12);
+    border-radius: 50%;
+    filter: blur(70px);
+    bottom: -100px;
+    left: -100px;
+    animation: floating 7s infinite alternate-reverse;
+}
 
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 38px;
-            }
+.hero {
+    position: relative;
+    z-index: 2;
+}
 
-            header p {
-                font-size: 18px;
-            }
+.logo {
+    font-size: 70px;
+    margin-bottom: 5px;
+    animation: appear 1s ease;
+}
 
-            .game-button {
-                padding: 13px 18px;
-            }
-        }
-    </style>
+header h1 {
+    font-size: 55px;
+    margin: 5px 0 15px;
+    text-shadow: 0 0 25px rgba(224,0,0,0.8);
+    animation: appear 1.2s ease;
+}
+
+header p {
+    font-size: 21px;
+    color: var(--muted);
+    animation: appear 1.4s ease;
+}
+
+.badge {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background: rgba(224,0,0,0.12);
+    border: 1px solid var(--red);
+    color: var(--red2);
+}
+
+/* دکمه‌ها */
+
+.hero-buttons {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.main-button {
+    display: inline-block;
+    padding: 14px 25px;
+    border-radius: 15px;
+    background: var(--red);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.main-button:hover {
+    transform: translateY(-5px) scale(1.04);
+    box-shadow: 0 10px 30px rgba(224,0,0,0.35);
+}
+
+.secondary-button {
+    background: transparent;
+    border: 1px solid var(--red);
+}
+
+/* عنوان بخش‌ها */
+
+.section-title {
+    text-align: center;
+    margin: 65px 20px 30px;
+}
+
+.section-title h2 {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: var(--muted);
+}
+
+/* بازی‌ها */
+
+.games {
+    width: 92%;
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.game-card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 25px;
+    padding: 25px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 15px 35px var(--shadow);
+    transition: 0.35s;
+    overflow: hidden;
+}
+
+.game-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--red);
+}
+
+.game-icon {
+    width: 75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    background: rgba(224,0,0,0.12);
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.game-card h3 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.game-card p {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.record {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.15);
+    padding: 10px 13px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.record strong {
+    color: #ffd700;
+}
+
+.play-button {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background: var(--red);
+    color: white;
+    padding: 13px;
+    border-radius: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.play-button:hover {
+    background: var(--red2);
+    transform: scale(1.02);
+}
+
+/* درباره من */
+
+.about {
+    width: 92%;
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 35px;
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 25px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 15px 35px var(--shadow);
+}
+
+.profile-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    background: var(--red);
+}
+
+.about h2 {
+    font-size: 30px;
+}
+
+.about p {
+    color: var(--muted);
+    line-height: 2;
+}
+
+/* جدول رکوردها */
+
+.score-table {
+    width: 92%;
+    max-width: 700px;
+    margin: auto;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 17px 20px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.score-row:last-child {
+    border-bottom: none;
+}
+
+.score-name {
+    font-weight: bold;
+}
+
+.score-value {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+/* تماس */
+
+.contact {
+    width: 92%;
+    max-width: 650px;
+    margin: auto;
+    padding: 30px;
+    text-align: center;
+    background: var(--card);
+    border-radius: 25px;
+    border: 1px solid var(--card-border);
+}
+
+/* فوتر */
+
+footer {
+    text-align: center;
+    background: #000;
+    color: white;
+    padding: 30px 15px;
+    margin-top: 80px;
+    border-top: 2px solid var(--red);
+}
+
+footer p {
+    margin: 7px;
+}
+
+/* انیمیشن */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floating {
+    from {
+        transform: translate(0,0);
+    }
+
+    to {
+        transform: translate(30px,30px);
+    }
+}
+
+/* موبایل */
+
+@media (max-width: 700px) {
+
+    nav {
+        padding: 10px 5px;
+    }
+
+    nav a {
+        font-size: 13px;
+        padding: 8px 9px;
+        margin: 2px;
+    }
+
+    header {
+        min-height: 75vh;
+    }
+
+    .logo {
+        font-size: 55px;
+    }
+
+    header h1 {
+        font-size: 36px;
+    }
+
+    header p {
+        font-size: 17px;
+    }
+
+    .games {
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+
+    .game-card {
+        padding: 20px;
+    }
+
+    .section-title h2 {
+        font-size: 28px;
+    }
+
+    .theme-button {
+        width: 43px;
+        height: 43px;
+        font-size: 19px;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-    <nav>
-        <a href="#home">🏠 خانه</a>
-        <a href="#about">👤 درباره من</a>
-        <a href="#games">🎮 بازی‌ها</a>
-        <a href="#contact">📞 تماس</a>
-    </nav>
+<!-- دکمه تغییر حالت -->
+<button class="theme-button" id="themeButton" title="تغییر حالت">
+    🌙
+</button>
 
-    <header id="home">
+<!-- منو -->
+
+<nav>
+
+    <a href="#home">🏠 خانه</a>
+
+    <a href="#games">🎮 بازی‌ها</a>
+
+    <a href="#scores">🏆 رکوردها</a>
+
+    <a href="#about">👤 درباره من</a>
+
+    <a href="#contact">📞 تماس</a>
+
+</nav>
+
+
+<!-- صفحه اصلی -->
+
+<header id="home">
+
+    <div class="hero">
+
+        <div class="logo">🎮</div>
 
         <h1>امیر حسین درویشان</h1>
 
-        <p>به سایت من خوش آمدی 😎</p>
+        <p>
+            به سایت من خوش آمدی 😎
+        </p>
 
-        <div class="buttons" id="games">
+        <div class="badge">
+            🚀 برنامه‌نویس در حال یادگیری
+        </div>
 
-            <!-- بازی حدس کلمه -->
-            <a
-                href="https://alidarveshang1362-source.github.io/index.html/"
-                class="game-button">
-                🎯 بازی حدس کلمه
+        <div class="hero-buttons">
+
+            <a href="#games" class="main-button">
+                🎮 مشاهده بازی‌ها
             </a>
 
-            <!-- بازی دوز -->
-            <a
-                href="https://alidarveshang1362-source.github.io/index.htm/"
-                class="game-button">
-                ⭕ بازی دوز
-            </a>
-
-            <!-- بازی مار -->
-            <a
-                href="https://alidarveshang1362-source.github.io/snake-game/"
-                class="game-button">
-                🐍 بازی مار
-            </a>
-
-            <!-- بازی تتریس -->
-            <a
-                href="https://alidarveshang1362-source.github.io/tetris.htm2/"
-                class="game-button">
-                🧱 بازی تتریس
-            </a>
-
-            <!-- بازی دایناسور -->
-            <a
-                href="https://alidarveshang1362-source.github.io/dino-game/"
-                class="game-button">
-                🦖 بازی دایناسور
+            <a href="#about" class="main-button secondary-button">
+                👤 درباره من
             </a>
 
         </div>
 
-    </header>
+    </div>
 
-    <section class="card" id="about">
+</header>
 
-        <h2>👤 درباره من</h2>
+
+<!-- بازی‌ها -->
+
+<div class="section-title" id="games">
+
+    <h2>🎮 بازی‌های من</h2>
+
+    <p>
+        یک بازی انتخاب کن و رکورد خودت را ثبت کن!
+    </p>
+
+</div>
+
+
+<div class="games">
+
+
+    <!-- حدس کلمه -->
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            🎯
+        </div>
+
+        <h3>
+            بازی حدس کلمه
+        </h3>
 
         <p>
-            سلام! من امیر حسین درویشان هستم.🚀
+            کلمه مخفی را پیدا کن و ببین چند امتیاز می‌توانی بگیری!
         </p>
 
-    </section>
+        <div class="record">
 
-    <section class="card" id="contact">
+            <span>
+                🏆 Best Score
+            </span>
 
-        <h2>📞 تماس با من</h2>
+            <strong id="wordBest">
+                0
+            </strong>
+
+        </div>
+
+        <a
+            href="https://alidarveshang1362-source.github.io/index.html/"
+            class="play-button"
+            onclick="clickSound()">
+
+            ▶️ شروع بازی
+
+        </a>
+
+    </div>
+
+
+    <!-- دوز -->
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            ⭕
+        </div>
+
+        <h3>
+            بازی دوز
+        </h3>
 
         <p>
-            در بروز رسانی آینده .
+            مقابل دوستت یا حریف بازی کن و سه علامت را ردیف کن!
         </p>
 
-    </section>
+        <div class="record">
 
-    <footer>
+            <span>
+                🏆 Best Score
+            </span>
+
+            <strong id="ticBest">
+                0
+            </strong>
+
+        </div>
+
+        <a
+            href="https://alidarveshang1362-source.github.io/index.htm/"
+            class="play-button"
+            onclick="clickSound()">
+
+            ▶️ شروع بازی
+
+        </a>
+
+    </div>
+
+
+    <!-- مار -->
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            🐍
+        </div>
+
+        <h3>
+            بازی مار
+        </h3>
+
+        <p>
+            سیب‌ها را بخور، بزرگ‌تر شو و مراقب برخورد با خودت باش!
+        </p>
+
+        <div class="record">
+
+            <span>
+                🏆 Best Score
+            </span>
+
+            <strong id="snakeBest">
+                0
+            </strong>
+
+        </div>
+
+        <a
+            href="https://alidarveshang1362-source.github.io/snake-game/"
+            class="play-button"
+            onclick="clickSound()">
+
+            ▶️ شروع بازی
+
+        </a>
+
+    </div>
+
+
+    <!-- تتریس -->
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            🧱
+        </div>
+
+        <h3>
+            بازی تتریس
+        </h3>
+
+        <p>
+            قطعه‌ها را درست کنار هم قرار بده و خطوط را پاک کن!
+        </p>
+
+        <div class="record">
+
+            <span>
+                🏆 Best Score
+            </span>
+
+            <strong id="tetrisBest">
+                0
+            </strong>
+
+        </div>
+
+        <a
+            href="https://alidarveshang1362-source.github.io/tetris.htm2/"
+            class="play-button"
+            onclick="clickSound()">
+
+            ▶️ شروع بازی
+
+        </a>
+
+    </div>
+
+
+    <!-- دایناسور -->
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            🦖
+        </div>
+
+        <h3>
+            بازی دایناسور
+        </h3>
+
+        <p>
+            از کاکتوس‌ها و پرنده‌ها عبور کن و تا جایی که می‌توانی امتیاز بگیر!
+        </p>
+
+        <div class="record">
+
+            <span>
+                🏆 Best Score
+            </span>
+
+            <strong id="dinoBest">
+                0
+            </strong>
+
+        </div>
+
+        <a
+            href="https://alidarveshang1362-source.github.io/dino-game/"
+            class="play-button"
+            onclick="clickSound()">
+
+            ▶️ شروع بازی
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<!-- جدول رکوردها -->
+
+<div class="section-title" id="scores">
+
+    <h2>🏆 جدول رکوردها</h2>
+
+    <p>
+        رکوردها روی همین دستگاه ذخیره می‌شوند.
+    </p>
+
+</div>
+
+
+<div class="score-table">
+
+    <div class="score-row">
+
+        <span class="score-name">
+            🎯 حدس کلمه
+        </span>
+
+        <span class="score-value" id="tableWord">
+            0
+        </span>
+
+    </div>
+
+    <div class="score-row">
+
+        <span class="score-name">
+            ⭕ دوز
+        </span>
+
+        <span class="score-value" id="tableTic">
+            0
+        </span>
+
+    </div>
+
+    <div class="score-row">
+
+        <span class="score-name">
+            🐍 مار
+        </span>
+
+        <span class="score-value" id="tableSnake">
+            0
+        </span>
+
+    </div>
+
+    <div class="score-row">
+
+        <span class="score-name">
+            🧱 تتریس
+        </span>
+
+        <span class="score-value" id="tableTetris">
+            0
+        </span>
+
+    </div>
+
+    <div class="score-row">
+
+        <span class="score-name">
+            🦖 دایناسور
+        </span>
+
+        <span class="score-value" id="tableDino">
+            0
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- درباره من -->
+
+<div class="section-title" id="about">
+
+    <h2>👤 سازنده سایت</h2>
+
+</div>
+
+
+<section class="about">
+
+    <div class="profile-icon">
+        👨‍💻
+    </div>
+
+    <h2>
+        امیر حسین درویشان
+    </h2>
+
+    <p>
+        سلام! من امیر حسین درویشان هستم.
+        این سایت را برای یادگیری برنامه‌نویسی و ساخت بازی‌های خودم درست کردم. 🚀
+    </p>
+
+    <p>
+        🎮 بازی‌سازی | 💻 برنامه‌نویسی | 🚀 یادگیری
+    </p>
+
+</section>
+
+
+<!-- تماس -->
+
+<div class="section-title" id="contact">
+
+    <h2>📞 تماس</h2>
+
+</div>
+
+
+<section class="contact">
+
+    <p>
+        این قسمت را می‌توانیم بعداً با اطلاعات تماس دلخواه کامل کنیم. 📩
+    </p>
+
+</section>
+
+
+<!-- فوتر -->
+
+<footer>
+
+    <p>
+        امیر حسین درویشان 🎮
+    </p>
+
+    <p>
+        ساخته شده با ❤️ و کدنویسی
+    </p>
+
+    <p>
         (ع.م.ج.خ.خ.م.ر.ا)
-    </footer>
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   حالت تاریک و روشن
+========================= */
+
+const themeButton =
+    document.getElementById("themeButton");
+
+const savedTheme =
+    localStorage.getItem("siteTheme");
+
+if (savedTheme === "light") {
+
+    document.body.classList.add("light");
+
+    themeButton.textContent = "☀️";
+
+}
+
+themeButton.addEventListener("click", function() {
+
+    document.body.classList.toggle("light");
+
+    if (document.body.classList.contains("light")) {
+
+        localStorage.setItem("siteTheme", "light");
+
+        themeButton.textContent = "☀️";
+
+    } else {
+
+        localStorage.setItem("siteTheme", "dark");
+
+        themeButton.textContent = "🌙";
+
+    }
+
+});
+
+
+/* =========================
+   رکوردها
+========================= */
+
+function getBest(key) {
+
+    return localStorage.getItem(key) || 0;
+
+}
+
+function showBest() {
+
+    const word =
+        getBest("wordBest");
+
+    const tic =
+        getBest("ticBest");
+
+    const snake =
+        getBest("snakeBest");
+
+    const tetris =
+        getBest("tetrisBest");
+
+    const dino =
+        getBest("dinoBest");
+
+
+    document.getElementById("wordBest").textContent =
+        word;
+
+    document.getElementById("ticBest").textContent =
+        tic;
+
+    document.getElementById("snakeBest").textContent =
+        snake;
+
+    document.getElementById("tetrisBest").textContent =
+        tetris;
+
+    document.getElementById("dinoBest").textContent =
+        dino;
+
+
+    document.getElementById("tableWord").textContent =
+        word;
+
+    document.getElementById("tableTic").textContent =
+        tic;
+
+    document.getElementById("tableSnake").textContent =
+        snake;
+
+    document.getElementById("tableTetris").textContent =
+        tetris;
+
+    document.getElementById("tableDino").textContent =
+        dino;
+
+}
+
+showBest();
+
+
+/* =========================
+   صدای کلیک ساده
+========================= */
+
+function clickSound() {
+
+    try {
+
+        const audio =
+            new Audio();
+
+        audio.src =
+            "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
+
+        audio.volume = 0.15;
+
+        audio.play().catch(() => {});
+
+    } catch(e) {}
+
+}
+
+</script>
 
 </body>
 </html>
